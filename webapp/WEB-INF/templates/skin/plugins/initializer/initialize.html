@@ -1,0 +1,40 @@
+<@row>
+    <form>
+        <div class="form-group row">
+                <label for="name" class="col-sm-12 col-md-2 col-form-label">#i18n{initializer.initialize.searchComponent.label}</label>
+                <div class="col-sm-12 col-md-6">
+                        <input type="text" id="search_component" name="search_component" data-provide="typeahead" value="" maxlength="50" class="form-control typeahead twitter-typeahead" placeholder="#i18n{initializer.initialize.searchComponent.placeholder}" aria-describedby="searchComponentHelpBlock" />
+                        <small id="searchComponentHelpBlock" class="form-text text-muted">#i18n{initializer.initialize.searchComponent.help}</small>
+                </div>
+                <div class="col-sm-12 col-md-6" id="selected_comp">
+                </div>
+        </div>
+    </form>
+</@row>
+
+<script src="js/bootstrap3-typeahead.min.js"></script>
+<script>
+var data=[<#list components_list as component>'${component.artifactId}',</#list>]
+ 
+$("#search_component").typeahead({
+  source: data,
+  autoSelect: true,
+  afterSelect: function(item) {
+    getFullComponent( item );
+  }
+});
+ 
+function getFullComponent( item )
+{
+    $.ajax({
+        type: "get",
+        url: "jsp/site/Portal.jsp",
+        data: "page=initializer&action=getFullComponent&id="+item,
+        success: function( json )
+        {
+            $("#selected_comp").append("<div>"+json.artifact_id+"   version : "+json.version+"</div>");
+            return json;
+        }
+    });
+}
+</script>
