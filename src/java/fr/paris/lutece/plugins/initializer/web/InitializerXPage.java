@@ -34,17 +34,20 @@
  	
 package fr.paris.lutece.plugins.initializer.web;
 
-import fr.paris.lutece.plugins.initializer.service.IComponentService;
 import fr.paris.lutece.plugins.lutecetools.business.Component;
+import fr.paris.lutece.plugins.lutecetools.business.dto.SiteBuilderConfDto;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.portal.util.mvc.commons.annotations.Action;
 import fr.paris.lutece.portal.web.xpages.XPage;
 import fr.paris.lutece.portal.util.mvc.xpage.MVCApplication;
 import fr.paris.lutece.portal.util.mvc.commons.annotations.View;
 import fr.paris.lutece.portal.util.mvc.xpage.annotations.Controller;
+import fr.paris.lutece.plugins.lutecetools.service.ILuteceToolsService;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.http.MediaType;
 
 /**
  * This class provides a simple implementation of an XPage
@@ -59,17 +62,21 @@ public class InitializerXPage extends MVCApplication
     
     // BEANS
     private static final String BEAN_COMPONENT_SERVICE = "initializer.componentService";
+    private static final String BEAN_LUTECE_TOOLS_SERVICE = "initializer.luteceToolsService";
     
     // MARKERS
     private static final String MARK_COMPONENT_LIST = "components_list";
     
     //ACTIONS
     private static final String ACTION_GET_FULL_COMPONENT = "getFullComponent";
+    private static final String ACTION_DOWNLOAD_POM_SITE = "doDownloadPomSite";
     
     //PARAMETERS
     private static final String PARAMETER_ID = "id";
+    private static final String PARAMATER_COMPONENTS = "comp";
     
-    IComponentService _componentService = SpringContextService.getBean( BEAN_COMPONENT_SERVICE );
+    ILuteceToolsService _luteceToolsService = SpringContextService.getBean( BEAN_LUTECE_TOOLS_SERVICE );
+    
     /**
      * Returns the content of the page initializer. 
      * @param request The HTTP request
@@ -79,18 +86,46 @@ public class InitializerXPage extends MVCApplication
     public XPage viewHome( HttpServletRequest request )
     {
         Map<String,Object> model = getModel();
-        model.put( MARK_COMPONENT_LIST, _componentService.getComponentList( false ) );
+        model.put( MARK_COMPONENT_LIST, _luteceToolsService.getComponentList( true, true ) );
         
         return getXPage( TEMPLATE_XPAGE, request.getLocale(  ), model );
     }
     
+    /**
+     * Get a JSON representing the full component
+     * @param request
+     *      The HttpServletRequest 
+     * @return a JSON representing a full component. 
+     */
     @Action( value = ACTION_GET_FULL_COMPONENT )
     public XPage getFullComponent( HttpServletRequest request )
     {
         String strId = request.getParameter( PARAMETER_ID );
-        Component fullComponent = _componentService.getFullComponent( strId );
-        String jsonComponent = _componentService.getComponentAsJsonString( fullComponent );
+        Component fullComponent = _luteceToolsService.getFullComponent( strId, true );
+        String jsonComponent = _luteceToolsService.getComponentAsJsonString( fullComponent );
         
         return responseJSON( jsonComponent );
+    }
+    
+    /**
+     * Action for downloading the site pom
+     * @param request
+     *              The HttpServletRequest
+     * @return the XML pom file
+     */
+    @Action( value = ACTION_DOWNLOAD_POM_SITE )
+    public XPage doDownloadSitePom( HttpServletRequest request )
+    {
+        String[] listArtifactId = request.getParameterValues( PARAMATER_COMPONENTS );
+        List<Component> listComponents = _luteceToolsService.getFullComponentList( listArtifactId, true );
+        
+        SiteBuilderConfDto siteBuilderConf = new SiteBuilderConfDto();
+        siteBuilderConf.setListComponents( listComponents );
+        siteBuilderConf.setArtifactId( "artifactSite" );
+        siteBuilderConf.setSiteName( "SiteName" );
+        
+        String strSitePom = _luteceToolsService.getSitePom( siteBuilderConf );
+        
+        return download( strSitePom, "pom.xml", MediaType.APPLICATION_XML_VALUE );
     }
 }

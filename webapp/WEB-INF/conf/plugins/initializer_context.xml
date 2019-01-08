@@ -4,6 +4,14 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" >
 
-       <bean id="initializer.componentService"  class="fr.paris.lutece.plugins.initializer.service.MokeComponentService" />
-
+       <bean id="initializer.luteceToolsService" class="fr.paris.lutece.plugins.lutecetools.service.LuteceToolsService">
+           <constructor-arg ref = "initializer.luteceToolsRestClient"/>
+       </bean>
+       
+       <bean id = "initializer.httpTransportProvider" class = "fr.paris.lutece.plugins.lutecetools.util.HttpAccessTransport"/>
+       
+       <bean id="initializer.luteceToolsRestClient" class="fr.paris.lutece.plugins.lutecetools.util.LuteceToolsHttpRestClient">
+            <constructor-arg ref = "initializer.httpTransportProvider"/>
+            <constructor-arg type = "java.lang.String" value = "http://localhost:8080/lutecetools/rest/lutecetools/" />
+       </bean>
 </beans>
