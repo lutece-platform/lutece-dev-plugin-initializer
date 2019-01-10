@@ -1,14 +1,34 @@
 <form action="jsp/site/Portal.jsp">
     <div class="form-group row">
             <input type="hidden" name="page" value="initializer"/>
-            <label for="name" class="col-sm-12 col-md-2 col-form-label">#i18n{initializer.initialize.searchComponent.label} ?</label>
-            <div class="col-sm-12 col-md-6">
+            <label for="name" class="col-sm-12 col-md-3 col-form-label">#i18n{initializer.initialize.searchComponent.label} ?</label>
+            <div class="col-sm-12 col-md-9">
                     <input type="text" id="search_component" name="search_component" data-provide="typeahead" value="" maxlength="50" class="form-control typeahead twitter-typeahead" placeholder="#i18n{initializer.initialize.searchComponent.placeholder}" aria-describedby="searchComponentHelpBlock" />
                     <small id="searchComponentHelpBlock" class="form-text text-muted">#i18n{initializer.initialize.searchComponent.help}</small>
             </div>
+            <div class="col-sm-12 col-md-6">
+                    <label>#i18n{initializer.initialize.artifactId.label}</label>
+                    <input type="text" id="artifact_id" name="artifact_id" class="form-control" />
+            </div>
+            <div class="col-sm-12 col-md-6">
+                    <label>#i18n{initializer.initialize.groupId.label}</label>
+                    <input type="text" id="group_id" name="group_id" class="form-control" />
+            </div>
+            <div class="col-sm-12 col-md-6">
+                    <label>#i18n{initializer.initialize.version.label}</label>
+                    <input type="text" id="version" name="version" class="form-control" />
+            </div>
+            <div class="col-sm-12 col-md-6">
+                    <label>#i18n{initializer.initialize.componentType.label}</label>
+                    <input type="text" id="component_type" name="component_type" class="form-control" />
+            </div>
+            <div class="col-sm-12 col-md-12">
+                    <label>#i18n{initializer.initialize.siteName.label}</label>
+                    <input type="text" id="site_name" name="site_name" class="form-control" />
+            </div>
     </div>
     <div class="form-group row">
-            <div class="col-sm-12 col-md-6" id="selected_comp">
+            <div class="col-sm-12 col-md-6 col-md-offset-3" id="selected_comp">
             </div>
     </div>
     <div class="form-group row">
@@ -16,32 +36,93 @@
             <button type="submit"  id="btn_download_site_pom" name="action_doDownloadPomSite">#i18n{initializer.initialize.generatePom}</button>
         <div>
     </div>
+    
+    <#list categories_list as category>
+    <div class="form-group row">
+         <label for="name" class="col-form-label">#i18n{${(category.labelKey)!''}}</label><br/>
+         <#list components_list as component>
+            <#if component.codeCategory == category.code>
+                <input type="checkbox" class="comp_from_list" name="comp_from_list" value="${(component.artifactId)!''}"/> #i18n{${(component.labelKey)!''}} --- #i18n{${(component.descriptionKey)!''}}
+                <br/>
+            </#if>
+         </#list>
+    </div>
+    </#list>
+            
 </form>
 
 
 <script src="js/bootstrap3-typeahead.min.js"></script>
 <script>
-var data=[<#list components_list as component>'${(component.artifactId)!''}',</#list>]
+var data=[<#list components_list as component>"${(component.artifactId)!''}"+" --- #i18n{${component.descriptionKey}}",</#list>]
  
 $("#search_component").typeahead({
   source: data,
   autoSelect: true,
   afterSelect: function(item) {
     getFullComponent( item );
+    checkInCompList( item.split(" ")[0] );
   }
+});
+    
+$(".comp_from_list").click( function(){
+   if( $(this).is(':checked') )
+   {
+       var artifactId = $(this).val();
+       getFullComponent( artifactId );
+   }
+   else
+    {
+       var artifactId = $(this).val();
+       removeFromSelectedComp( artifactId );
+    }
 });
  
 function getFullComponent( item )
 {
-    $.ajax({
-        type: "get",
-        url: "jsp/site/Portal.jsp",
-        data: "page=initializer&action=getFullComponent&id="+item,
-        success: function( json )
+    var addNewComp = true;
+    $('.comp').each( function( index )
+    {
+        if ( $(this).val()==item ) 
         {
-            $("#selected_comp").append('<input type="checkbox" checked name="comp" value="'+json.artifact_id+'"/>     '+json.artifact_id+'   version : '+json.version+'<br>');
-            return json;
+            addNewComp = false;
+            $(this).prop('checked',true);
         }
     });
+    if ( addNewComp )
+    {
+        $.ajax({
+            type: "get",
+            url: "jsp/site/Portal.jsp",
+            data: "page=initializer&action=getFullComponent&id="+item.split(" ")[0],
+            success: function( json )
+            {
+                $("#selected_comp").append('<input type="checkbox" checked class="comp" name="comp" value="'+json.artifact_id+'"/>     '+json.artifact_id+'   version : '+json.version+'<br>');
+                return json;
+            }
+        });
+    }
+}
+    
+function checkInCompList( artifactId )
+{
+    $('.comp_from_list').each( function( index )
+    {
+        if ( $(this).val()==artifactId )
+        {
+            $(this).prop('checked',true);
+        }
+    }); 
+}
+    
+function removeFromSelectedComp( artifactId )
+{
+    $('.comp').each( function( index )
+    {
+        if ( $(this).val()==artifactId )
+        {
+            $(this).prop('checked',false);
+        }
+    }); 
 }
 </script>

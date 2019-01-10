@@ -34,6 +34,8 @@
  	
 package fr.paris.lutece.plugins.initializer.web;
 
+import fr.paris.lutece.plugins.initializer.business.CategoryComponentHome;
+import fr.paris.lutece.plugins.initializer.business.StarterComponentHome;
 import fr.paris.lutece.plugins.lutecetools.business.Component;
 import fr.paris.lutece.plugins.lutecetools.business.dto.SiteBuilderConfDto;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
@@ -43,8 +45,11 @@ import fr.paris.lutece.portal.util.mvc.xpage.MVCApplication;
 import fr.paris.lutece.portal.util.mvc.commons.annotations.View;
 import fr.paris.lutece.portal.util.mvc.xpage.annotations.Controller;
 import fr.paris.lutece.plugins.lutecetools.service.ILuteceToolsService;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.MediaType;
@@ -61,11 +66,11 @@ public class InitializerXPage extends MVCApplication
     private static final String VIEW_INITIALIZE = "initialize";
     
     // BEANS
-    private static final String BEAN_COMPONENT_SERVICE = "initializer.componentService";
     private static final String BEAN_LUTECE_TOOLS_SERVICE = "initializer.luteceToolsService";
     
     // MARKERS
     private static final String MARK_COMPONENT_LIST = "components_list";
+    private static final String MARK_CATEGORIES_LIST = "categories_list";
     
     //ACTIONS
     private static final String ACTION_GET_FULL_COMPONENT = "getFullComponent";
@@ -86,7 +91,9 @@ public class InitializerXPage extends MVCApplication
     public XPage viewHome( HttpServletRequest request )
     {
         Map<String,Object> model = getModel();
-        model.put( MARK_COMPONENT_LIST, _luteceToolsService.getComponentList( true, true ) );
+        
+        model.put( MARK_COMPONENT_LIST, StarterComponentHome.getStarterComponentsList( ) );
+        model.put( MARK_CATEGORIES_LIST, CategoryComponentHome.getCategoryComponentsList( ) );
         
         return getXPage( TEMPLATE_XPAGE, request.getLocale(  ), model );
     }
@@ -116,16 +123,19 @@ public class InitializerXPage extends MVCApplication
     @Action( value = ACTION_DOWNLOAD_POM_SITE )
     public XPage doDownloadSitePom( HttpServletRequest request )
     {
-        String[] listArtifactId = request.getParameterValues( PARAMATER_COMPONENTS );
-        List<Component> listComponents = _luteceToolsService.getFullComponentList( listArtifactId, true );
-        
-        SiteBuilderConfDto siteBuilderConf = new SiteBuilderConfDto();
-        siteBuilderConf.setListComponents( listComponents );
-        siteBuilderConf.setArtifactId( "artifactSite" );
-        siteBuilderConf.setSiteName( "SiteName" );
-        
-        String strSitePom = _luteceToolsService.getSitePom( siteBuilderConf );
-        
-        return download( strSitePom, "pom.xml", MediaType.APPLICATION_XML_VALUE );
+        if ( request.getParameterValues( PARAMATER_COMPONENTS ) != null)
+        {
+             Set<String> setArtifactId = new HashSet<>(Arrays.asList( request.getParameterValues( PARAMATER_COMPONENTS ) ) ); 
+            List<Component> listComponents = _luteceToolsService.getFullComponentList( setArtifactId.toArray( new String[ setArtifactId.size( ) ] ), true );
+
+            SiteBuilderConfDto siteBuilderConf = new SiteBuilderConfDto();
+            
+            populate( siteBuilderConf, request );
+            siteBuilderConf.setListComponents( listComponents );
+
+            String strSitePom = _luteceToolsService.getSitePom( siteBuilderConf );
+            return download( strSitePom, "pom.xml", MediaType.APPLICATION_XML_VALUE );
+        }
+        return redirectView( request, VIEW_INITIALIZE );
     }
 }

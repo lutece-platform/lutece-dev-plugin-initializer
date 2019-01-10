@@ -4,6 +4,8 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" >
 
+		<bean id="initializer.starterComponentDAO" class="fr.paris.lutece.plugins.initializer.business.StarterComponentDAO" />
+		<bean id="initializer.categoryComponentDAO" class="fr.paris.lutece.plugins.initializer.business.CategoryComponentDAO" />
        <bean id="initializer.luteceToolsService" class="fr.paris.lutece.plugins.lutecetools.service.LuteceToolsService">
            <constructor-arg ref = "initializer.luteceToolsRestClient"/>
        </bean>
