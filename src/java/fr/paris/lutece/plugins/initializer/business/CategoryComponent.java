@@ -30,7 +30,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * License 1.0
- */ 
+ */
 package fr.paris.lutece.plugins.initializer.business;
 
 import javax.validation.constraints.Size;
@@ -39,25 +39,26 @@ import java.io.Serializable;
 
 /**
  * This is the business class for the object CategoryComponent
- */ 
+ */
 public class CategoryComponent implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
-    // Variables declarations 
+    // Variables declarations
     private int _nId;
-    
-    @Size( max = 255 , message = "#i18n{initializer.validation.categorycomponent.Code.size}" ) 
+
+    @Size( max = 255, message = "#i18n{initializer.validation.categorycomponent.Code.size}" )
     private String _strCode;
-    
-    @Size( max = 255 , message = "#i18n{initializer.validation.categorycomponent.LabelKey.size}" ) 
+
+    @Size( max = 255, message = "#i18n{initializer.validation.categorycomponent.LabelKey.size}" )
     private String _strLabelKey;
-    
-    @Size( max = 255 , message = "#i18n{initializer.validation.categorycomponent.LabelDefault.size}" ) 
+
+    @Size( max = 255, message = "#i18n{initializer.validation.categorycomponent.LabelDefault.size}" )
     private String _strLabelDefault;
 
     /**
      * Returns the Id
+     * 
      * @return The Id
      */
     public int getId( )
@@ -67,15 +68,18 @@ public class CategoryComponent implements Serializable
 
     /**
      * Sets the Id
-     * @param nId The Id
-     */ 
+     * 
+     * @param nId
+     *            The Id
+     */
     public void setId( int nId )
     {
         _nId = nId;
     }
-    
+
     /**
      * Returns the Code
+     * 
      * @return The Code
      */
     public String getCode( )
@@ -85,15 +89,18 @@ public class CategoryComponent implements Serializable
 
     /**
      * Sets the Code
-     * @param strCode The Code
-     */ 
+     * 
+     * @param strCode
+     *            The Code
+     */
     public void setCode( String strCode )
     {
         _strCode = strCode;
     }
-    
+
     /**
      * Returns the LabelKey
+     * 
      * @return The LabelKey
      */
     public String getLabelKey( )
@@ -103,15 +110,18 @@ public class CategoryComponent implements Serializable
 
     /**
      * Sets the LabelKey
-     * @param strLabelKey The LabelKey
-     */ 
+     * 
+     * @param strLabelKey
+     *            The LabelKey
+     */
     public void setLabelKey( String strLabelKey )
     {
         _strLabelKey = strLabelKey;
     }
-    
+
     /**
      * Returns the LabelDefault
+     * 
      * @return The LabelDefault
      */
     public String getLabelDefault( )
@@ -121,8 +131,10 @@ public class CategoryComponent implements Serializable
 
     /**
      * Sets the LabelDefault
-     * @param strLabelDefault The LabelDefault
-     */ 
+     * 
+     * @param strLabelDefault
+     *            The LabelDefault
+     */
     public void setLabelDefault( String strLabelDefault )
     {
         _strLabelDefault = strLabelDefault;

@@ -65,15 +65,15 @@ public final class StarterComponentDAO implements IStarterComponentDAO
         try
         {
             int nIndex = 1;
-            daoUtil.setString( nIndex++ , starterComponent.getArtifactId( ) );
-            daoUtil.setString( nIndex++ , starterComponent.getCodeCategory( ) );
-            daoUtil.setString( nIndex++ , starterComponent.getLabelKey( ) );
-            daoUtil.setString( nIndex++ , starterComponent.getLabelDefault( ) );
-            daoUtil.setString( nIndex++ , starterComponent.getDescriptionKey( ) );
-            daoUtil.setString( nIndex++ , starterComponent.getDescriptionDefault( ) );
-            
+            daoUtil.setString( nIndex++, starterComponent.getArtifactId( ) );
+            daoUtil.setString( nIndex++, starterComponent.getCodeCategory( ) );
+            daoUtil.setString( nIndex++, starterComponent.getLabelKey( ) );
+            daoUtil.setString( nIndex++, starterComponent.getLabelDefault( ) );
+            daoUtil.setString( nIndex++, starterComponent.getDescriptionKey( ) );
+            daoUtil.setString( nIndex++, starterComponent.getDescriptionDefault( ) );
+
             daoUtil.executeUpdate( );
-            if ( daoUtil.nextGeneratedKey( ) ) 
+            if ( daoUtil.nextGeneratedKey( ) )
             {
                 starterComponent.setId( daoUtil.getGeneratedKeyInt( 1 ) );
             }
@@ -91,15 +91,15 @@ public final class StarterComponentDAO implements IStarterComponentDAO
     public StarterComponent load( int nKey, Plugin plugin )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin );
-        daoUtil.setInt( 1 , nKey );
+        daoUtil.setInt( 1, nKey );
         daoUtil.executeQuery( );
         StarterComponent starterComponent = null;
 
         if ( daoUtil.next( ) )
         {
-            starterComponent = new StarterComponent();
+            starterComponent = new StarterComponent( );
             int nIndex = 1;
-            
+
             starterComponent.setId( daoUtil.getInt( nIndex++ ) );
             starterComponent.setArtifactId( daoUtil.getString( nIndex++ ) );
             starterComponent.setCodeCategory( daoUtil.getString( nIndex++ ) );
@@ -120,7 +120,7 @@ public final class StarterComponentDAO implements IStarterComponentDAO
     public void delete( int nKey, Plugin plugin )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin );
-        daoUtil.setInt( 1 , nKey );
+        daoUtil.setInt( 1, nKey );
         daoUtil.executeUpdate( );
         daoUtil.free( );
     }
@@ -133,15 +133,15 @@ public final class StarterComponentDAO implements IStarterComponentDAO
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin );
         int nIndex = 1;
-        
-        daoUtil.setInt( nIndex++ , starterComponent.getId( ) );
-        daoUtil.setString( nIndex++ , starterComponent.getArtifactId( ) );
-        daoUtil.setString( nIndex++ , starterComponent.getCodeCategory( ) );
-        daoUtil.setString( nIndex++ , starterComponent.getLabelKey( ) );
-        daoUtil.setString( nIndex++ , starterComponent.getLabelDefault( ) );
-        daoUtil.setString( nIndex++ , starterComponent.getDescriptionKey( ) );
-        daoUtil.setString( nIndex++ , starterComponent.getDescriptionDefault( ) );
-        daoUtil.setInt( nIndex , starterComponent.getId( ) );
+
+        daoUtil.setInt( nIndex++, starterComponent.getId( ) );
+        daoUtil.setString( nIndex++, starterComponent.getArtifactId( ) );
+        daoUtil.setString( nIndex++, starterComponent.getCodeCategory( ) );
+        daoUtil.setString( nIndex++, starterComponent.getLabelKey( ) );
+        daoUtil.setString( nIndex++, starterComponent.getLabelDefault( ) );
+        daoUtil.setString( nIndex++, starterComponent.getDescriptionKey( ) );
+        daoUtil.setString( nIndex++, starterComponent.getDescriptionDefault( ) );
+        daoUtil.setInt( nIndex, starterComponent.getId( ) );
 
         daoUtil.executeUpdate( );
         daoUtil.free( );
@@ -153,15 +153,15 @@ public final class StarterComponentDAO implements IStarterComponentDAO
     @Override
     public List<StarterComponent> selectStarterComponentsList( Plugin plugin )
     {
-        List<StarterComponent> starterComponentList = new ArrayList<StarterComponent>(  );
+        List<StarterComponent> starterComponentList = new ArrayList<StarterComponent>( );
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin );
-        daoUtil.executeQuery(  );
+        daoUtil.executeQuery( );
 
-        while ( daoUtil.next(  ) )
+        while ( daoUtil.next( ) )
         {
-            StarterComponent starterComponent = new StarterComponent(  );
+            StarterComponent starterComponent = new StarterComponent( );
             int nIndex = 1;
-            
+
             starterComponent.setId( daoUtil.getInt( nIndex++ ) );
             starterComponent.setArtifactId( daoUtil.getString( nIndex++ ) );
             starterComponent.setCodeCategory( daoUtil.getString( nIndex++ ) );
@@ -176,7 +176,7 @@ public final class StarterComponentDAO implements IStarterComponentDAO
         daoUtil.free( );
         return starterComponentList;
     }
-    
+
     /**
      * {@inheritDoc }
      */
@@ -185,9 +185,9 @@ public final class StarterComponentDAO implements IStarterComponentDAO
     {
         List<Integer> starterComponentList = new ArrayList<Integer>( );
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_ID, plugin );
-        daoUtil.executeQuery(  );
+        daoUtil.executeQuery( );
 
-        while ( daoUtil.next(  ) )
+        while ( daoUtil.next( ) )
         {
             starterComponentList.add( daoUtil.getInt( 1 ) );
         }
@@ -195,20 +195,20 @@ public final class StarterComponentDAO implements IStarterComponentDAO
         daoUtil.free( );
         return starterComponentList;
     }
-    
+
     /**
      * {@inheritDoc }
      */
     @Override
     public ReferenceList selectStarterComponentsReferenceList( Plugin plugin )
     {
-        ReferenceList starterComponentList = new ReferenceList();
+        ReferenceList starterComponentList = new ReferenceList( );
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin );
-        daoUtil.executeQuery(  );
+        daoUtil.executeQuery( );
 
-        while ( daoUtil.next(  ) )
+        while ( daoUtil.next( ) )
         {
-            starterComponentList.addItem( daoUtil.getInt( 1 ) , daoUtil.getString( 2 ) );
+            starterComponentList.addItem( daoUtil.getInt( 1 ), daoUtil.getString( 2 ) );
         }
 
         daoUtil.free( );

@@ -31,7 +31,7 @@
  *
  * License 1.0
  */
- package fr.paris.lutece.plugins.initializer.business;
+package fr.paris.lutece.plugins.initializer.business;
 
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.plugin.PluginService;
@@ -52,14 +52,16 @@ public final class CategoryComponentHome
     /**
      * Private constructor - this class need not be instantiated
      */
-    private CategoryComponentHome(  )
+    private CategoryComponentHome( )
     {
     }
 
     /**
      * Create an instance of the categoryComponent class
-     * @param categoryComponent The instance of the CategoryComponent which contains the informations to store
-     * @return The  instance of categoryComponent which has been created with its primary key.
+     * 
+     * @param categoryComponent
+     *            The instance of the CategoryComponent which contains the informations to store
+     * @return The instance of categoryComponent which has been created with its primary key.
      */
     public static CategoryComponent create( CategoryComponent categoryComponent )
     {
@@ -70,8 +72,10 @@ public final class CategoryComponentHome
 
     /**
      * Update of the categoryComponent which is specified in parameter
-     * @param categoryComponent The instance of the CategoryComponent which contains the data to store
-     * @return The instance of the  categoryComponent which has been updated
+     * 
+     * @param categoryComponent
+     *            The instance of the CategoryComponent which contains the data to store
+     * @return The instance of the categoryComponent which has been updated
      */
     public static CategoryComponent update( CategoryComponent categoryComponent )
     {
@@ -82,7 +86,9 @@ public final class CategoryComponentHome
 
     /**
      * Remove the categoryComponent whose identifier is specified in parameter
-     * @param nKey The categoryComponent Id
+     * 
+     * @param nKey
+     *            The categoryComponent Id
      */
     public static void remove( int nKey )
     {
@@ -91,7 +97,9 @@ public final class CategoryComponentHome
 
     /**
      * Returns an instance of a categoryComponent whose identifier is specified in parameter
-     * @param nKey The categoryComponent primary key
+     * 
+     * @param nKey
+     *            The categoryComponent primary key
      * @return an instance of CategoryComponent
      */
     public static CategoryComponent findByPrimaryKey( int nKey )
@@ -101,24 +109,27 @@ public final class CategoryComponentHome
 
     /**
      * Load the data of all the categoryComponent objects and returns them as a list
+     * 
      * @return the list which contains the data of all the categoryComponent objects
      */
     public static List<CategoryComponent> getCategoryComponentsList( )
     {
         return _dao.selectCategoryComponentsList( _plugin );
     }
-    
+
     /**
      * Load the id of all the categoryComponent objects and returns them as a list
+     * 
      * @return the list which contains the id of all the categoryComponent objects
      */
     public static List<Integer> getIdCategoryComponentsList( )
     {
         return _dao.selectIdCategoryComponentsList( _plugin );
     }
-    
+
     /**
      * Load the data of all the categoryComponent objects and returns them as a referenceList
+     * 
      * @return the referenceList which contains the data of all the categoryComponent objects
      */
     public static ReferenceList getCategoryComponentsReferenceList( )
@@ -126,4 +137,3 @@ public final class CategoryComponentHome
         return _dao.selectCategoryComponentsReferenceList( _plugin );
     }
 }
-

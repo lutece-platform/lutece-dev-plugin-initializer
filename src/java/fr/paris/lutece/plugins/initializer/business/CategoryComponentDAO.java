@@ -65,12 +65,12 @@ public final class CategoryComponentDAO implements ICategoryComponentDAO
         try
         {
             int nIndex = 1;
-            daoUtil.setString( nIndex++ , categoryComponent.getCode( ) );
-            daoUtil.setString( nIndex++ , categoryComponent.getLabelKey( ) );
-            daoUtil.setString( nIndex++ , categoryComponent.getLabelDefault( ) );
-            
+            daoUtil.setString( nIndex++, categoryComponent.getCode( ) );
+            daoUtil.setString( nIndex++, categoryComponent.getLabelKey( ) );
+            daoUtil.setString( nIndex++, categoryComponent.getLabelDefault( ) );
+
             daoUtil.executeUpdate( );
-            if ( daoUtil.nextGeneratedKey( ) ) 
+            if ( daoUtil.nextGeneratedKey( ) )
             {
                 categoryComponent.setId( daoUtil.getGeneratedKeyInt( 1 ) );
             }
@@ -88,15 +88,15 @@ public final class CategoryComponentDAO implements ICategoryComponentDAO
     public CategoryComponent load( int nKey, Plugin plugin )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin );
-        daoUtil.setInt( 1 , nKey );
+        daoUtil.setInt( 1, nKey );
         daoUtil.executeQuery( );
         CategoryComponent categoryComponent = null;
 
         if ( daoUtil.next( ) )
         {
-            categoryComponent = new CategoryComponent();
+            categoryComponent = new CategoryComponent( );
             int nIndex = 1;
-            
+
             categoryComponent.setId( daoUtil.getInt( nIndex++ ) );
             categoryComponent.setCode( daoUtil.getString( nIndex++ ) );
             categoryComponent.setLabelKey( daoUtil.getString( nIndex++ ) );
@@ -114,7 +114,7 @@ public final class CategoryComponentDAO implements ICategoryComponentDAO
     public void delete( int nKey, Plugin plugin )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin );
-        daoUtil.setInt( 1 , nKey );
+        daoUtil.setInt( 1, nKey );
         daoUtil.executeUpdate( );
         daoUtil.free( );
     }
@@ -127,12 +127,12 @@ public final class CategoryComponentDAO implements ICategoryComponentDAO
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin );
         int nIndex = 1;
-        
-        daoUtil.setInt( nIndex++ , categoryComponent.getId( ) );
-        daoUtil.setString( nIndex++ , categoryComponent.getCode( ) );
-        daoUtil.setString( nIndex++ , categoryComponent.getLabelKey( ) );
-        daoUtil.setString( nIndex++ , categoryComponent.getLabelDefault( ) );
-        daoUtil.setInt( nIndex , categoryComponent.getId( ) );
+
+        daoUtil.setInt( nIndex++, categoryComponent.getId( ) );
+        daoUtil.setString( nIndex++, categoryComponent.getCode( ) );
+        daoUtil.setString( nIndex++, categoryComponent.getLabelKey( ) );
+        daoUtil.setString( nIndex++, categoryComponent.getLabelDefault( ) );
+        daoUtil.setInt( nIndex, categoryComponent.getId( ) );
 
         daoUtil.executeUpdate( );
         daoUtil.free( );
@@ -144,15 +144,15 @@ public final class CategoryComponentDAO implements ICategoryComponentDAO
     @Override
     public List<CategoryComponent> selectCategoryComponentsList( Plugin plugin )
     {
-        List<CategoryComponent> categoryComponentList = new ArrayList<CategoryComponent>(  );
+        List<CategoryComponent> categoryComponentList = new ArrayList<CategoryComponent>( );
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin );
-        daoUtil.executeQuery(  );
+        daoUtil.executeQuery( );
 
-        while ( daoUtil.next(  ) )
+        while ( daoUtil.next( ) )
         {
-            CategoryComponent categoryComponent = new CategoryComponent(  );
+            CategoryComponent categoryComponent = new CategoryComponent( );
             int nIndex = 1;
-            
+
             categoryComponent.setId( daoUtil.getInt( nIndex++ ) );
             categoryComponent.setCode( daoUtil.getString( nIndex++ ) );
             categoryComponent.setLabelKey( daoUtil.getString( nIndex++ ) );
@@ -164,7 +164,7 @@ public final class CategoryComponentDAO implements ICategoryComponentDAO
         daoUtil.free( );
         return categoryComponentList;
     }
-    
+
     /**
      * {@inheritDoc }
      */
@@ -173,9 +173,9 @@ public final class CategoryComponentDAO implements ICategoryComponentDAO
     {
         List<Integer> categoryComponentList = new ArrayList<Integer>( );
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_ID, plugin );
-        daoUtil.executeQuery(  );
+        daoUtil.executeQuery( );
 
-        while ( daoUtil.next(  ) )
+        while ( daoUtil.next( ) )
         {
             categoryComponentList.add( daoUtil.getInt( 1 ) );
         }
@@ -183,20 +183,20 @@ public final class CategoryComponentDAO implements ICategoryComponentDAO
         daoUtil.free( );
         return categoryComponentList;
     }
-    
+
     /**
      * {@inheritDoc }
      */
     @Override
     public ReferenceList selectCategoryComponentsReferenceList( Plugin plugin )
     {
-        ReferenceList categoryComponentList = new ReferenceList();
+        ReferenceList categoryComponentList = new ReferenceList( );
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin );
-        daoUtil.executeQuery(  );
+        daoUtil.executeQuery( );
 
-        while ( daoUtil.next(  ) )
+        while ( daoUtil.next( ) )
         {
-            categoryComponentList.addItem( daoUtil.getInt( 1 ) , daoUtil.getString( 2 ) );
+            categoryComponentList.addItem( daoUtil.getInt( 1 ), daoUtil.getString( 2 ) );
         }
 
         daoUtil.free( );

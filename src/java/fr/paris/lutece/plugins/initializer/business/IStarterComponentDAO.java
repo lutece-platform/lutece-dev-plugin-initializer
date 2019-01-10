@@ -31,7 +31,7 @@
  *
  * License 1.0
  */
- 
+
 package fr.paris.lutece.plugins.initializer.business;
 
 import fr.paris.lutece.portal.service.plugin.Plugin;
@@ -45,53 +45,71 @@ public interface IStarterComponentDAO
 {
     /**
      * Insert a new record in the table.
-     * @param starterComponent instance of the StarterComponent object to insert
-     * @param plugin the Plugin
+     * 
+     * @param starterComponent
+     *            instance of the StarterComponent object to insert
+     * @param plugin
+     *            the Plugin
      */
     void insert( StarterComponent starterComponent, Plugin plugin );
 
     /**
      * Update the record in the table
-     * @param starterComponent the reference of the StarterComponent
-     * @param plugin the Plugin
+     * 
+     * @param starterComponent
+     *            the reference of the StarterComponent
+     * @param plugin
+     *            the Plugin
      */
     void store( StarterComponent starterComponent, Plugin plugin );
 
     /**
      * Delete a record from the table
-     * @param nKey The identifier of the StarterComponent to delete
-     * @param plugin the Plugin
+     * 
+     * @param nKey
+     *            The identifier of the StarterComponent to delete
+     * @param plugin
+     *            the Plugin
      */
     void delete( int nKey, Plugin plugin );
 
-    ///////////////////////////////////////////////////////////////////////////
+    // /////////////////////////////////////////////////////////////////////////
     // Finders
 
     /**
      * Load the data from the table
-     * @param nKey The identifier of the starterComponent
-     * @param plugin the Plugin
+     * 
+     * @param nKey
+     *            The identifier of the starterComponent
+     * @param plugin
+     *            the Plugin
      * @return The instance of the starterComponent
      */
     StarterComponent load( int nKey, Plugin plugin );
 
     /**
      * Load the data of all the starterComponent objects and returns them as a list
-     * @param plugin the Plugin
+     * 
+     * @param plugin
+     *            the Plugin
      * @return The list which contains the data of all the starterComponent objects
      */
     List<StarterComponent> selectStarterComponentsList( Plugin plugin );
-    
+
     /**
      * Load the id of all the starterComponent objects and returns them as a list
-     * @param plugin the Plugin
+     * 
+     * @param plugin
+     *            the Plugin
      * @return The list which contains the id of all the starterComponent objects
      */
     List<Integer> selectIdStarterComponentsList( Plugin plugin );
-    
+
     /**
      * Load the data of all the starterComponent objects and returns them as a referenceList
-     * @param plugin the Plugin
+     * 
+     * @param plugin
+     *            the Plugin
      * @return The referenceList which contains the data of all the starterComponent objects
      */
     ReferenceList selectStarterComponentsReferenceList( Plugin plugin );

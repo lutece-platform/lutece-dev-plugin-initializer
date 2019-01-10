@@ -31,7 +31,7 @@
  *
  * License 1.0
  */
- package fr.paris.lutece.plugins.initializer.business;
+package fr.paris.lutece.plugins.initializer.business;
 
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.plugin.PluginService;
@@ -52,14 +52,16 @@ public final class StarterComponentHome
     /**
      * Private constructor - this class need not be instantiated
      */
-    private StarterComponentHome(  )
+    private StarterComponentHome( )
     {
     }
 
     /**
      * Create an instance of the starterComponent class
-     * @param starterComponent The instance of the StarterComponent which contains the informations to store
-     * @return The  instance of starterComponent which has been created with its primary key.
+     * 
+     * @param starterComponent
+     *            The instance of the StarterComponent which contains the informations to store
+     * @return The instance of starterComponent which has been created with its primary key.
      */
     public static StarterComponent create( StarterComponent starterComponent )
     {
@@ -70,8 +72,10 @@ public final class StarterComponentHome
 
     /**
      * Update of the starterComponent which is specified in parameter
-     * @param starterComponent The instance of the StarterComponent which contains the data to store
-     * @return The instance of the  starterComponent which has been updated
+     * 
+     * @param starterComponent
+     *            The instance of the StarterComponent which contains the data to store
+     * @return The instance of the starterComponent which has been updated
      */
     public static StarterComponent update( StarterComponent starterComponent )
     {
@@ -82,7 +86,9 @@ public final class StarterComponentHome
 
     /**
      * Remove the starterComponent whose identifier is specified in parameter
-     * @param nKey The starterComponent Id
+     * 
+     * @param nKey
+     *            The starterComponent Id
      */
     public static void remove( int nKey )
     {
@@ -91,7 +97,9 @@ public final class StarterComponentHome
 
     /**
      * Returns an instance of a starterComponent whose identifier is specified in parameter
-     * @param nKey The starterComponent primary key
+     * 
+     * @param nKey
+     *            The starterComponent primary key
      * @return an instance of StarterComponent
      */
     public static StarterComponent findByPrimaryKey( int nKey )
@@ -101,24 +109,27 @@ public final class StarterComponentHome
 
     /**
      * Load the data of all the starterComponent objects and returns them as a list
+     * 
      * @return the list which contains the data of all the starterComponent objects
      */
     public static List<StarterComponent> getStarterComponentsList( )
     {
         return _dao.selectStarterComponentsList( _plugin );
     }
-    
+
     /**
      * Load the id of all the starterComponent objects and returns them as a list
+     * 
      * @return the list which contains the id of all the starterComponent objects
      */
     public static List<Integer> getIdStarterComponentsList( )
     {
         return _dao.selectIdStarterComponentsList( _plugin );
     }
-    
+
     /**
      * Load the data of all the starterComponent objects and returns them as a referenceList
+     * 
      * @return the referenceList which contains the data of all the starterComponent objects
      */
     public static ReferenceList getStarterComponentsReferenceList( )
@@ -126,4 +137,3 @@ public final class StarterComponentHome
         return _dao.selectStarterComponentsReferenceList( _plugin );
     }
 }
-

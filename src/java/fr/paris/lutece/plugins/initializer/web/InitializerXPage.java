@@ -31,7 +31,7 @@
  *
  * License 1.0
  */
- 	
+
 package fr.paris.lutece.plugins.initializer.web;
 
 import fr.paris.lutece.plugins.initializer.business.CategoryComponentHome;
@@ -57,52 +57,55 @@ import org.springframework.http.MediaType;
 /**
  * This class provides a simple implementation of an XPage
  */
-@Controller( xpageName = "initializer" , pageTitleI18nKey = "initializer.xpage.initializer.pageTitle" , pagePathI18nKey = "initializer.xpage.initializer.pagePathLabel" )
+@Controller( xpageName = "initializer", pageTitleI18nKey = "initializer.xpage.initializer.pageTitle", pagePathI18nKey = "initializer.xpage.initializer.pagePathLabel" )
 public class InitializerXPage extends MVCApplication
 {
     private static final String TEMPLATE_XPAGE = "/skin/plugins/initializer/initialize.html";
-    
+
     // VIEW INITIALIZE
     private static final String VIEW_INITIALIZE = "initialize";
-    
+
     // BEANS
     private static final String BEAN_LUTECE_TOOLS_SERVICE = "initializer.luteceToolsService";
-    
+
     // MARKERS
     private static final String MARK_COMPONENT_LIST = "components_list";
     private static final String MARK_CATEGORIES_LIST = "categories_list";
-    
-    //ACTIONS
+
+    // ACTIONS
     private static final String ACTION_GET_FULL_COMPONENT = "getFullComponent";
     private static final String ACTION_DOWNLOAD_POM_SITE = "doDownloadPomSite";
-    
-    //PARAMETERS
+
+    // PARAMETERS
     private static final String PARAMETER_ID = "id";
     private static final String PARAMATER_COMPONENTS = "comp";
-    
+
     ILuteceToolsService _luteceToolsService = SpringContextService.getBean( BEAN_LUTECE_TOOLS_SERVICE );
-    
+
     /**
-     * Returns the content of the page initializer. 
-     * @param request The HTTP request
+     * Returns the content of the page initializer.
+     * 
+     * @param request
+     *            The HTTP request
      * @return The view
      */
-    @View( value = VIEW_INITIALIZE , defaultView = true )
+    @View( value = VIEW_INITIALIZE, defaultView = true )
     public XPage viewHome( HttpServletRequest request )
     {
-        Map<String,Object> model = getModel();
-        
+        Map<String, Object> model = getModel( );
+
         model.put( MARK_COMPONENT_LIST, StarterComponentHome.getStarterComponentsList( ) );
         model.put( MARK_CATEGORIES_LIST, CategoryComponentHome.getCategoryComponentsList( ) );
-        
-        return getXPage( TEMPLATE_XPAGE, request.getLocale(  ), model );
+
+        return getXPage( TEMPLATE_XPAGE, request.getLocale( ), model );
     }
-    
+
     /**
      * Get a JSON representing the full component
+     * 
      * @param request
-     *      The HttpServletRequest 
-     * @return a JSON representing a full component. 
+     *            The HttpServletRequest
+     * @return a JSON representing a full component.
      */
     @Action( value = ACTION_GET_FULL_COMPONENT )
     public XPage getFullComponent( HttpServletRequest request )
@@ -110,26 +113,27 @@ public class InitializerXPage extends MVCApplication
         String strId = request.getParameter( PARAMETER_ID );
         Component fullComponent = _luteceToolsService.getFullComponent( strId, true );
         String jsonComponent = _luteceToolsService.getComponentAsJsonString( fullComponent );
-        
+
         return responseJSON( jsonComponent );
     }
-    
+
     /**
      * Action for downloading the site pom
+     * 
      * @param request
-     *              The HttpServletRequest
+     *            The HttpServletRequest
      * @return the XML pom file
      */
     @Action( value = ACTION_DOWNLOAD_POM_SITE )
     public XPage doDownloadSitePom( HttpServletRequest request )
     {
-        if ( request.getParameterValues( PARAMATER_COMPONENTS ) != null)
+        if ( request.getParameterValues( PARAMATER_COMPONENTS ) != null )
         {
-             Set<String> setArtifactId = new HashSet<>(Arrays.asList( request.getParameterValues( PARAMATER_COMPONENTS ) ) ); 
-            List<Component> listComponents = _luteceToolsService.getFullComponentList( setArtifactId.toArray( new String[ setArtifactId.size( ) ] ), true );
+            Set<String> setArtifactId = new HashSet<>( Arrays.asList( request.getParameterValues( PARAMATER_COMPONENTS ) ) );
+            List<Component> listComponents = _luteceToolsService.getFullComponentList( setArtifactId.toArray( new String [ setArtifactId.size( )] ), true );
 
-            SiteBuilderConfDto siteBuilderConf = new SiteBuilderConfDto();
-            
+            SiteBuilderConfDto siteBuilderConf = new SiteBuilderConfDto( );
+
             populate( siteBuilderConf, request );
             siteBuilderConf.setListComponents( listComponents );
 

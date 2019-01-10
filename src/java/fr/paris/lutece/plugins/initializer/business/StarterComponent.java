@@ -30,7 +30,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * License 1.0
- */ 
+ */
 package fr.paris.lutece.plugins.initializer.business;
 
 import javax.validation.constraints.Size;
@@ -39,31 +39,32 @@ import java.io.Serializable;
 
 /**
  * This is the business class for the object StarterComponent
- */ 
+ */
 public class StarterComponent implements Serializable
 {
     private static final long serialVersionUID = 1L;
 
-    // Variables declarations 
+    // Variables declarations
     private int _nId;
-    
-    @Size( max = 255 , message = "#i18n{initializer.validation.startercomponent.ArtifactId.size}" ) 
+
+    @Size( max = 255, message = "#i18n{initializer.validation.startercomponent.ArtifactId.size}" )
     private String _strArtifactId;
-    
+
     private String _strCodeCategory;
-    
-    @Size( max = 255 , message = "#i18n{initializer.validation.startercomponent.LabelKey.size}" ) 
+
+    @Size( max = 255, message = "#i18n{initializer.validation.startercomponent.LabelKey.size}" )
     private String _strLabelKey;
-    
+
     private String _strLabelDefault;
-    
-    @Size( max = 255 , message = "#i18n{initializer.validation.startercomponent.DescriptionKey.size}" ) 
+
+    @Size( max = 255, message = "#i18n{initializer.validation.startercomponent.DescriptionKey.size}" )
     private String _strDescriptionKey;
-    
+
     private String _strDescriptionDefault;
 
     /**
      * Returns the Id
+     * 
      * @return The Id
      */
     public int getId( )
@@ -73,15 +74,18 @@ public class StarterComponent implements Serializable
 
     /**
      * Sets the Id
-     * @param nId The Id
-     */ 
+     * 
+     * @param nId
+     *            The Id
+     */
     public void setId( int nId )
     {
         _nId = nId;
     }
-    
+
     /**
      * Returns the ArtifactId
+     * 
      * @return The ArtifactId
      */
     public String getArtifactId( )
@@ -91,15 +95,18 @@ public class StarterComponent implements Serializable
 
     /**
      * Sets the ArtifactId
-     * @param strArtifactId The ArtifactId
-     */ 
+     * 
+     * @param strArtifactId
+     *            The ArtifactId
+     */
     public void setArtifactId( String strArtifactId )
     {
         _strArtifactId = strArtifactId;
     }
-    
+
     /**
      * Returns the CodeCategory
+     * 
      * @return The CodeCategory
      */
     public String getCodeCategory( )
@@ -109,15 +116,18 @@ public class StarterComponent implements Serializable
 
     /**
      * Sets the CodeCategory
-     * @param strCodeCategory The CodeCategory
-     */ 
+     * 
+     * @param strCodeCategory
+     *            The CodeCategory
+     */
     public void setCodeCategory( String strCodeCategory )
     {
         _strCodeCategory = strCodeCategory;
     }
-    
+
     /**
      * Returns the LabelKey
+     * 
      * @return The LabelKey
      */
     public String getLabelKey( )
@@ -127,15 +137,18 @@ public class StarterComponent implements Serializable
 
     /**
      * Sets the LabelKey
-     * @param strLabelKey The LabelKey
-     */ 
+     * 
+     * @param strLabelKey
+     *            The LabelKey
+     */
     public void setLabelKey( String strLabelKey )
     {
         _strLabelKey = strLabelKey;
     }
-    
+
     /**
      * Returns the LabelDefault
+     * 
      * @return The LabelDefault
      */
     public String getLabelDefault( )
@@ -145,15 +158,18 @@ public class StarterComponent implements Serializable
 
     /**
      * Sets the LabelDefault
-     * @param strLabelDefault The LabelDefault
-     */ 
+     * 
+     * @param strLabelDefault
+     *            The LabelDefault
+     */
     public void setLabelDefault( String strLabelDefault )
     {
         _strLabelDefault = strLabelDefault;
     }
-    
+
     /**
      * Returns the DescriptionKey
+     * 
      * @return The DescriptionKey
      */
     public String getDescriptionKey( )
@@ -163,15 +179,18 @@ public class StarterComponent implements Serializable
 
     /**
      * Sets the DescriptionKey
-     * @param strDescriptionKey The DescriptionKey
-     */ 
+     * 
+     * @param strDescriptionKey
+     *            The DescriptionKey
+     */
     public void setDescriptionKey( String strDescriptionKey )
     {
         _strDescriptionKey = strDescriptionKey;
     }
-    
+
     /**
      * Returns the DescriptionDefault
+     * 
      * @return The DescriptionDefault
      */
     public String getDescriptionDefault( )
@@ -181,11 +200,13 @@ public class StarterComponent implements Serializable
 
     /**
      * Sets the DescriptionDefault
-     * @param strDescriptionDefault The DescriptionDefault
-     */ 
+     * 
+     * @param strDescriptionDefault
+     *            The DescriptionDefault
+     */
     public void setDescriptionDefault( String strDescriptionDefault )
     {
         _strDescriptionDefault = strDescriptionDefault;
     }
-   
+
 }

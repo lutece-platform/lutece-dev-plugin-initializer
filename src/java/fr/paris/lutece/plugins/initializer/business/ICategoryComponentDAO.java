@@ -31,7 +31,7 @@
  *
  * License 1.0
  */
- 
+
 package fr.paris.lutece.plugins.initializer.business;
 
 import fr.paris.lutece.portal.service.plugin.Plugin;
@@ -45,53 +45,71 @@ public interface ICategoryComponentDAO
 {
     /**
      * Insert a new record in the table.
-     * @param categoryComponent instance of the CategoryComponent object to insert
-     * @param plugin the Plugin
+     * 
+     * @param categoryComponent
+     *            instance of the CategoryComponent object to insert
+     * @param plugin
+     *            the Plugin
      */
     void insert( CategoryComponent categoryComponent, Plugin plugin );
 
     /**
      * Update the record in the table
-     * @param categoryComponent the reference of the CategoryComponent
-     * @param plugin the Plugin
+     * 
+     * @param categoryComponent
+     *            the reference of the CategoryComponent
+     * @param plugin
+     *            the Plugin
      */
     void store( CategoryComponent categoryComponent, Plugin plugin );
 
     /**
      * Delete a record from the table
-     * @param nKey The identifier of the CategoryComponent to delete
-     * @param plugin the Plugin
+     * 
+     * @param nKey
+     *            The identifier of the CategoryComponent to delete
+     * @param plugin
+     *            the Plugin
      */
     void delete( int nKey, Plugin plugin );
 
-    ///////////////////////////////////////////////////////////////////////////
+    // /////////////////////////////////////////////////////////////////////////
     // Finders
 
     /**
      * Load the data from the table
-     * @param nKey The identifier of the categoryComponent
-     * @param plugin the Plugin
+     * 
+     * @param nKey
+     *            The identifier of the categoryComponent
+     * @param plugin
+     *            the Plugin
      * @return The instance of the categoryComponent
      */
     CategoryComponent load( int nKey, Plugin plugin );
 
     /**
      * Load the data of all the categoryComponent objects and returns them as a list
-     * @param plugin the Plugin
+     * 
+     * @param plugin
+     *            the Plugin
      * @return The list which contains the data of all the categoryComponent objects
      */
     List<CategoryComponent> selectCategoryComponentsList( Plugin plugin );
-    
+
     /**
      * Load the id of all the categoryComponent objects and returns them as a list
-     * @param plugin the Plugin
+     * 
+     * @param plugin
+     *            the Plugin
      * @return The list which contains the id of all the categoryComponent objects
      */
     List<Integer> selectIdCategoryComponentsList( Plugin plugin );
-    
+
     /**
      * Load the data of all the categoryComponent objects and returns them as a referenceList
-     * @param plugin the Plugin
+     * 
+     * @param plugin
+     *            the Plugin
      * @return The referenceList which contains the data of all the categoryComponent objects
      */
     ReferenceList selectCategoryComponentsReferenceList( Plugin plugin );
