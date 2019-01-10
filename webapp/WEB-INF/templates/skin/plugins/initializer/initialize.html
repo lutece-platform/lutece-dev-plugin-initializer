@@ -6,6 +6,11 @@
                     <input type="text" id="search_component" name="search_component" data-provide="typeahead" value="" maxlength="50" class="form-control typeahead twitter-typeahead" placeholder="#i18n{initializer.initialize.searchComponent.placeholder}" aria-describedby="searchComponentHelpBlock" />
                     <small id="searchComponentHelpBlock" class="form-text text-muted">#i18n{initializer.initialize.searchComponent.help}</small>
             </div>
+            <div class="col-sm-12 col-md-9 col-md-offset-3">
+                    <input type="checkbox" checked id="search_only_in_starters"/>
+                    <label>#i18n{initializer.initialize.searchOnlyInStarter.label}</label>
+            </div>
+            
             <div class="col-sm-12 col-md-6">
                     <label>#i18n{initializer.initialize.artifactId.label}</label>
                     <input type="text" id="artifact_id" name="artifact_id" class="form-control" />
@@ -37,17 +42,21 @@
         <div>
     </div>
     
-    <#list categories_list as category>
-    <div class="form-group row">
-         <label for="name" class="col-form-label">#i18n{${(category.labelKey)!''}}</label><br/>
-         <#list components_list as component>
-            <#if component.codeCategory == category.code>
-                <input type="checkbox" class="comp_from_list" name="comp_from_list" value="${(component.artifactId)!''}"/> #i18n{${(component.labelKey)!''}} --- #i18n{${(component.descriptionKey)!''}}
-                <br/>
-            </#if>
-         </#list>
+        <#list categories_list as category>
+        <div class="form-group row">
+             <label for="name" class="col-form-label">#i18n{${(category.labelKey)!''}}</label><br/>
+             <#list components_list as component>
+                <#if component.codeCategory == category.code>
+                    <label class="col-sm-10 col-md-10 col-md-offset-1">#i18n{${(component.labelKey)!''}}</label>
+                    <input class="col-sm-1 col-md-1 comp_from_list" type="checkbox" name="comp_from_list" value="${(component.artifactId)!''}"/>
+                    <small class="col-sm-10 col-md-10 col-md-offset-1">#i18n{${(component.descriptionKey)!''}}</small>
+                    <br/>
+                </#if>
+             </#list>
+        </div>
+
+        </#list>
     </div>
-    </#list>
             
 </form>
 
@@ -55,7 +64,20 @@
 <script src="js/bootstrap3-typeahead.min.js"></script>
 <script>
 var data=[<#list components_list as component>"${(component.artifactId)!''}"+" --- #i18n{${component.descriptionKey}}",</#list>]
- 
+
+$("#search_only_in_starters").click( function(){
+   if( $(this).is(':checked') )
+   {
+       data=[<#list components_list as component>"${(component.artifactId)!''}"+" --- #i18n{${component.descriptionKey}}",</#list>]
+       
+   }
+   else
+    {
+       data=[<#list all_components_list as component>"${(component.artifactId)!''}",</#list>];
+    }
+    $("#search_component").data('typeahead').source = data;
+});
+
 $("#search_component").typeahead({
   source: data,
   autoSelect: true,

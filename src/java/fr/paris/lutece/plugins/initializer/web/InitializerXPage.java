@@ -70,6 +70,7 @@ public class InitializerXPage extends MVCApplication
 
     // MARKERS
     private static final String MARK_COMPONENT_LIST = "components_list";
+    private static final String MARK_ALL_COMPONENT_LIST = "all_components_list";
     private static final String MARK_CATEGORIES_LIST = "categories_list";
 
     // ACTIONS
@@ -94,6 +95,7 @@ public class InitializerXPage extends MVCApplication
     {
         Map<String, Object> model = getModel( );
 
+        model.put( MARK_ALL_COMPONENT_LIST, _luteceToolsService.getComponentList( false, true ) );
         model.put( MARK_COMPONENT_LIST, StarterComponentHome.getStarterComponentsList( ) );
         model.put( MARK_CATEGORIES_LIST, CategoryComponentHome.getCategoryComponentsList( ) );
 
