@@ -63,17 +63,23 @@
 
 <script src="js/bootstrap3-typeahead.min.js"></script>
 <script>
-var data=[<#list components_list as component>"${(component.artifactId)!''}"+" --- #i18n{${component.descriptionKey}}",</#list>]
+
+var startDatas=[<#list components_list as component>"${(component.artifactId)!''}"+" --- #i18n{${component.descriptionKey}}",</#list>];
+var allDatas;
+fetchAllArtifactId();
+var data = startDatas;
+
+
 
 $("#search_only_in_starters").click( function(){
    if( $(this).is(':checked') )
    {
-       data=[<#list components_list as component>"${(component.artifactId)!''}"+" --- #i18n{${component.descriptionKey}}",</#list>]
+       data=startDatas;
        
    }
    else
     {
-       data=[<#list all_components_list as component>"${(component.artifactId)!''}",</#list>];
+       data=allDatas;
     }
     $("#search_component").data('typeahead').source = data;
 });
@@ -146,5 +152,29 @@ function removeFromSelectedComp( artifactId )
             $(this).prop('checked',false);
         }
     }); 
+}
+    
+function fetchAllArtifactId( )
+{
+    $.ajax({
+            type: "get",
+            url: "jsp/site/Portal.jsp",
+            data: "page=initializer&action=getAllArtifactId",
+            async: true,
+            success: function( json )
+            {
+                setAllDatas ( json ) 
+            }
+    });
+}
+    
+function setAllDatas( json )
+{
+    var artifactIdList=[];
+    for(var i = 0; i < json.components.length; i++) 
+    {
+        artifactIdList.push( json.components[i].artifact_id );
+    }
+    allDatas = artifactIdList;
 }
 </script>

@@ -70,12 +70,12 @@ public class InitializerXPage extends MVCApplication
 
     // MARKERS
     private static final String MARK_COMPONENT_LIST = "components_list";
-    private static final String MARK_ALL_COMPONENT_LIST = "all_components_list";
     private static final String MARK_CATEGORIES_LIST = "categories_list";
 
     // ACTIONS
     private static final String ACTION_GET_FULL_COMPONENT = "getFullComponent";
     private static final String ACTION_DOWNLOAD_POM_SITE = "doDownloadPomSite";
+    private static final String ACTION_GET_ALL_ARTIFACT_ID = "getAllArtifactId";
 
     // PARAMETERS
     private static final String PARAMETER_ID = "id";
@@ -95,7 +95,6 @@ public class InitializerXPage extends MVCApplication
     {
         Map<String, Object> model = getModel( );
 
-        model.put( MARK_ALL_COMPONENT_LIST, _luteceToolsService.getComponentList( false, true ) );
         model.put( MARK_COMPONENT_LIST, StarterComponentHome.getStarterComponentsList( ) );
         model.put( MARK_CATEGORIES_LIST, CategoryComponentHome.getCategoryComponentsList( ) );
 
@@ -117,6 +116,22 @@ public class InitializerXPage extends MVCApplication
         String jsonComponent = _luteceToolsService.getComponentAsJsonString( fullComponent );
 
         return responseJSON( jsonComponent );
+    }
+    
+    
+    /**
+     * Get a JSON representing the full component
+     * 
+     * @param request
+     *            The HttpServletRequest
+     * @return a JSON representing a full component.
+     */
+    @Action( value = ACTION_GET_ALL_ARTIFACT_ID )
+    public XPage getAllLuteceArtifactId( HttpServletRequest request )
+    {
+        String strJSONArtifactId = _luteceToolsService.getJSONArtifactIdList();
+
+        return responseJSON( strJSONArtifactId );
     }
 
     /**
