@@ -54,4 +54,11 @@
         <jiraProjectName>INITIALIZER</jiraProjectName>
         <jiraComponentId></jiraComponentId>
     </properties>
+
+    <scm>
+        <connection>scm:git:https://github.com/lutece-platform/lutece-dev-plugin-initializer.git</connection>
+        <developerConnection>scm:git:https://github.com/lutece-platform/lutece-dev-plugin-initializer.git</developerConnection>
+        <url>https://github.com/lutece-platform/lutece-dev-plugin-initializer.git</url>
+    </scm>
+
 </project>
